@@ -91,3 +91,34 @@ the overall algorithm runs in O(n).
 =================================================
 
 """
+def count_pairs_brute(nums, target):
+
+    count = 0
+
+    for i in range(len(nums)):
+        for j in range(i + 1, len(nums)):
+            if nums[i] + nums[j] == target:
+                count += 1
+
+    return count
+
+
+def count_pairs_fast(nums, target):
+
+    freq = {}
+    count = 0
+
+    for x in nums:
+        complement = target - x
+
+        if complement in freq:
+            count += freq[complement]
+
+        freq[x] = freq.get(x, 0) + 1
+
+    return count
+nums = list(map(int, input("Enter integers separated by spaces: ").split()))
+target = int(input("Enter target sum: "))
+
+print("Brute Force:", count_pairs_brute(nums, target))  
+print("Optimized:  ", count_pairs_fast(nums, target))   
